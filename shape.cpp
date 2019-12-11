@@ -128,10 +128,12 @@ bool Square :: IsInside (int x, int y)
 }
 bool Circle :: IsInside (int x, int y)
 {
-    if (this->w<x ||-this-> w >x|| this->w<y|| -this-> w<y)
-        return false;
+    if ((this->x-x) * (this->x-x) + (this->y-y) * (this->y-y)<=w*w)
+    {
+        return  true ;
+    }
     else
-        return true;
+        return false;
 
 }
 void Rect :: MoveTo(int x, int y)
@@ -163,13 +165,53 @@ void ShapeGame :: StartMove(int x, int y)
 
 void ShapeGame :: EndMove(int x, int y)
 {
+    for(int i=numShapes-1; i>=0; i--)
+    {
+        if(shapes[i]->IsInside(stx,sty))
+        {
+            if (i!=numShapes-1)
+            {
+//numShapes++;
 
-if(shapes[numShapes]->IsInside(stx,sty))
-shapes[numShapes]->MoveTo(x,y);
+                auto x=shapes[i];
+                for(int j=i; j<numShapes-1; j++)
+                {
+                    shapes[j]=shapes[j+1];
+                }
+
+
+                shapes[numShapes-1]=x;
+                shapes[numShapes-1]->MoveTo(stx,sty);
+
+                break;
+            }
+            else
+            {
+                shapes[i]->MoveTo(stx,sty);
+                break;
+            }
+        }
+
+    }
+}
+double Rect ::Area()
+{
+    return 4*(double)h*(double)w;
+}
+double Square ::Area()
+{
+    return 4*(double)x*(double)x;
+}
+double Circle ::Area()
+{
+    return 22/7*(double)w*(double)w;
+}
+double ShapeGame :: GetArea()
+{
+
+
+   double x=shapes[numShapes-1]->Area();
+   return x;
 
 
 }
-double Rect ::Area() { return 2*h*w;}
-double Square ::Area(){return 2*w*w;}
-double Circle ::Area() {return 22/7*w*w;}
-double ShapeGame :: GetArea() {shape :: Area();}
