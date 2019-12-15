@@ -173,14 +173,18 @@ void ShapeGame :: EndMove(int x, int y)
             {
 //numShapes++;
 
-                auto x=shapes[i];
+                shapes[99] =shapes[i];
+                /*
+                another method led to the same thing
+                auto x= shapes[i];*/
                 for(int j=i; j<numShapes-1; j++)
                 {
                     shapes[j]=shapes[j+1];
                 }
 
 
-                shapes[numShapes-1]=x;
+                shapes[numShapes-1]=shapes[99];
+                //shapes[numShapes-1]=x;
                 shapes[numShapes-1]->MoveTo(stx,sty);
 
                 break;
@@ -194,24 +198,26 @@ void ShapeGame :: EndMove(int x, int y)
 
     }
 }
-double Rect ::Area()
+float  Rect ::Area()
 {
-    return 4*(double)h*(double)w;
+    return 4*(float)h*(float)w;
 }
-double Square ::Area()
+float Square ::Area()
 {
-    return 4*(double)x*(double)x;
+    return 4*(float)x*(float)x;
 }
-double Circle ::Area()
+float  Circle ::Area()
 {
-    return 22/7*(double)w*(double)w;
+    return 22/7*(float)w*(float)w;
 }
 double ShapeGame :: GetArea()
 {
 
 
-   double x=shapes[numShapes-1]->Area();
+   float x=shapes[numShapes-1]->Area();
+
    return x;
 
 
 }
+
